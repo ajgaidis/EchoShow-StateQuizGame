@@ -1,0 +1,11 @@
+QuizIntent Start a quiz
+AnswerIntent {capital}
+AnswerIntent The capital of {state} is {capital}
+AnswerIntent I think it is {capital}
+AnswerIntent Is it {capital}
+AnswerIntent It must be {capital}
+AMAZON.HelpIntent Help
+AMAZON.HelpIntent What am I supposed to do?
+AMAZON.StopIntent Quit
+AMAZON.StopIntent Stop
+AMAZON.CancelIntent Cancel

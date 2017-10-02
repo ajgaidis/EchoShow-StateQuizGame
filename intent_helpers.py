@@ -1,5 +1,6 @@
 from state_data import data, get_random_state, search_for_dict_entry
 from build_response import *
+import random
 
 
 def get_welcome_response():
@@ -13,7 +14,7 @@ def get_welcome_response():
                      " information about a state!")
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text,
-        build_display_response('https://i.imgur.com/TPq94ny.png'),
+        build_display_response('https://i.imgur.com/WTHzM1y.png'),
         should_end_session))
 
 def initialize_quiz_data(num_quiz_items):
@@ -26,9 +27,26 @@ def initialize_quiz_data(num_quiz_items):
         quiz_items.append(state_dict)
     return quiz_items
 
+
+positive_speechCons = ["bam", "bazinga", "bingo", "boom", "booya", "bravo",
+                       "cha ching", "cowabunga", "dynomite", "hurray",
+                       "kaching", "mazel tov", "righto", "wahoo", "well done"]
+negative_speechCons = ["argh", "blah", "blarg", "boo", "bummer", "d'oh", "eek",
+                       "good grief", "jeepers creepers", "le sigh", "mamma mia",
+                       "oh boy", "oh brother", "oh dear", "oy", "ruh roh",
+                       "wah wah", "uh oh", "yikes", "yuck"]
+def speechCon(is_response_correct):
+    """ Returns a positive or negative speechCon for colorful interaction """
+    if is_response_correct:
+        return ("<say-as interpret-as='interjection'>" +
+                random.choice(positive_speechCons) + "</say-as>")
+    else:
+        return ("<say-as interpret-as='interjection'>" +
+                random.choice(negative_speechCons) + "</say-as>")
+
 def start_quiz():
     """ Corresponds to the StartQuiz intent which initializes a quiz """
-    total_questions = 9
+    total_questions = 9 # 10 questions total since zero-index
     quiz_data = initialize_quiz_data(total_questions)
     session_attributes = {"quizData": quiz_data,
                           "numQuestions": total_questions,
@@ -45,7 +63,7 @@ def start_quiz():
         build_display_response(quiz_data[0]["image"]), should_end_session))
 
 def answer(slots, attributes):
-    """ Handles judging quiz answers and prompting for the next quesiton """
+    """ Handles judging quiz answers and prompting for the next question """
     quiz_data = attributes["quizData"]
     total_questions = attributes["numQuestions"]
     questions_asked = attributes["questionsAsked"]
@@ -54,13 +72,13 @@ def answer(slots, attributes):
     if questions_asked == total_questions: # all ten questions asked
         session_attributes = {}
         speech_output = ("Wow! Not too shabby! You got %d out of %d correct." %
-                         (questionsCorrect, total_questions))
+                         (questionsCorrect, total_questions + 1))
         card_title = "Answer"
         should_end_session = True
         reprompt_text = ""
         return build_response(session_attributes, build_speechlet_response(
             card_title, speech_output, reprompt_text,
-            build_display_response('https://i.imgur.com/TPq94ny.png'),
+            build_display_response('https://i.imgur.com/WTHzM1y.png'),
             should_end_session))
     else:
         if quiz_data[questions_asked]["capital"] == slots["capital"]["value"]:
@@ -72,7 +90,8 @@ def answer(slots, attributes):
                              quiz_data[questions_asked + 1]["StateName"] + "?")
             card_title = "Answer"
             should_end_session = False
-            reprompt_text = ""
+            reprompt_text = ("What is the capital of " +
+                            quiz_data[questions_asked + 1]["StateName"] + "?")
             return build_response(session_attributes, build_speechlet_response(
                 card_title, speech_output, reprompt_text,
                 build_display_response(quiz_data[questions_asked + 1]["image"]),
@@ -82,11 +101,14 @@ def answer(slots, attributes):
                                   "numQuestions": total_questions,
                                   "questionsAsked": (questions_asked + 1),
                                   "numQuestionsCorrect": questionsCorrect}
-            speech_output = ("Incorrect! What is the capital of " +
+            speech_output = ("Incorrect! The capital was " +
+                             quiz_data[questions_asked]["capital"] +
+                             ". What is the capital of " +
                              quiz_data[questions_asked + 1]["StateName"] + "?")
             card_title = "Answer"
             should_end_session = False
-            reprompt_text = ""
+            reprompt_text = ("What is the capital of " +
+                            quiz_data[questions_asked + 1]["StateName"] + "?")
             return build_response(session_attributes, build_speechlet_response(
                 card_title, speech_output, reprompt_text,
                 build_display_response(quiz_data[questions_asked + 1]["image"]),
@@ -101,7 +123,7 @@ def stop():
     reprompt_text = ""
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text,
-        build_display_response('https://i.imgur.com/TPq94ny.png'),
+        build_display_response('https://i.imgur.com/WTHzM1y.png'),
         should_end_session))
 
 def cancel():
@@ -113,7 +135,7 @@ def cancel():
     reprompt_text = ""
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text,
-        build_display_response('https://i.imgur.com/TPq94ny.png'),
+        build_display_response('https://i.imgur.com/WTHzM1y.png'),
         should_end_session))
 
 def not_implemented_error():
@@ -125,5 +147,5 @@ def not_implemented_error():
     reprompt_text = ""
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text,
-        build_display_response('https://i.imgur.com/TPq94ny.png'),
+        build_display_response('https://i.imgur.com/WTHzM1y.png'),
         should_end_session))

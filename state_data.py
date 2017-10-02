@@ -239,12 +239,12 @@ data = [
             "capital": "Harrisburg",
             "image": "https://i.imgur.com/CODKbXU.png"
         },
-        {
-            "StateName": "Rhode Island",
-            "abbreviation": "RI",
-            "capital": "Providence",
-            "image": "https://i.imgur.com/A22BcsB.png"
-        },
+        # {
+        #     "StateName": "Rhode Island",
+        #     "abbreviation": "RI",
+        #     "capital": "Providence",
+        #     "image": "https://i.imgur.com/A22BcsB.png"
+        # },
         {
             "StateName": "South Carolina",
             "abbreviation": "SC",

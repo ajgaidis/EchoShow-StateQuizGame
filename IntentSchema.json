@@ -1,0 +1,69 @@
+{
+  "intents": [
+    {
+      "intent": "AnswerIntent",
+      "slots": [
+        {
+          "name": "state",
+          "type": "AMAZON.US_STATE"
+        },
+        {
+          "name": "abbreviation",
+          "type": "US_STATE_ABBR"
+        },
+        {
+          "name": "capital",
+          "type": "AMAZON.US_CITY"
+        }
+      ],
+    },
+    {
+      "intent": "QuizIntent" 
+    },
+    {
+      "intent": "AMAZON.HelpIntent"
+    },
+    {
+      "intent": "AMAZON.RepeatIntent"
+    },
+    {
+      "intent": "AMAZON.StopIntent"
+    },
+    {
+      "intent": "AMAZON.CancelIntent"
+    },
+    {
+      "intent": "AMAZON.StartOverIntent"
+    },
+    {
+      "intent": "AMAZON.PreviousIntent"
+    },
+    {
+      "intent": "AMAZON.NextIntent"
+    },
+    {
+      "intent": "AMAZON.ScrollUpIntent"
+    },
+    {
+      "intent": "AMAZON.ScrollLeftIntent"
+    },
+    {
+      "intent": "AMAZON.ScrollDownIntent"
+    },
+    {
+      "intent": "AMAZON.ScrollRightIntent"
+    },
+    {
+      "intent": "AMAZON.PageUpIntent"
+    },
+    {
+      "intent": "AMAZON.PageDownIntent"
+    },
+    {
+      "intent": "AMAZON.MoreIntent"
+    },
+    {
+      "intent": "AMAZON.NavigateSettingsIntent"
+    }
+  ]
+}
